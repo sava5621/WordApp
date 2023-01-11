@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WordApp.MainPage"
+             BackgroundColor="#F7F8FA">
+
+
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Start">
+
+            <Frame Padding="7" BackgroundColor="#fff" Margin="5">
+                <Entry TextColor="Black" Margin="1" Placeholder="Введите название предмета"/>
+            </Frame>
+            <Frame Padding="7" BackgroundColor="#fff" Margin="5">
+            <Grid RowDefinitions="45, *">
+                <Grid Grid.Row="0" ColumnDefinitions="*,*" >
+                    <Label Grid.Column="0" Text="Генератор заданий" TextColor="Black"/>
+                    <Button Grid.Column="1" Text="+" Padding="0"
+                            WidthRequest="30"
+                            HeightRequest="30"
+                            TextColor="White"
+                            FontSize="18"
+                            HorizontalOptions="End"
+                            VerticalOptions="Start"
+                            BackgroundColor="{StaticResource Primary}"/>
+                </Grid>
+               
+                <ScrollView Grid.Row="1">
+                <VerticalStackLayout>
+                        <Label Grid.Column="0" Text="Генератор заданий" TextColor="Black"/>
+                </VerticalStackLayout>
+            </ScrollView>
+            </Grid>
+        </Frame>
+                
+        </VerticalStackLayout>
+
+
+</ContentPage>
