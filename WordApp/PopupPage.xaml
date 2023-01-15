@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="WordApp.PopupPage"
+             Color="White">
+    <Grid RowDefinitions="*,*,*"
+          Padding="10"
+          ColumnDefinitions="Auto,*">
+
+        <RadioButton Content="Текст" 
+                     Grid.Row="0"
+                     Grid.Column="0"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Start"
+                     Margin="0"
+                     Padding="0"
+                     x:Name="isText"
+                     TextColor="Black" 
+                     />
+        <Border Padding="0" Margin="10"
+                Stroke="#FD7B38"
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalOptions="FillAndExpand">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10,10,10,10" />
+            </Border.StrokeShape>
+            <Editor 
+                 TextColor="Black"
+                 FontSize="14"
+                x:Name="EditrText"
+                 HorizontalOptions="FillAndExpand">
+                <Editor.Triggers>
+                    <DataTrigger TargetType="Editor"
+                                 Binding="{Binding  Source={x:Reference isText} , Path =IsChecked}" Value="True">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Editor"
+                                 Binding="{Binding  Source={x:Reference isText} , Path =IsChecked }" Value="False">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                </Editor.Triggers>
+            </Editor>
+        </Border>
+        <RadioButton Content="Картинка" 
+                     Grid.Row="1"
+                     Grid.Column="0"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Start"
+                     x:Name="isImage"
+                     Margin="0"
+                     Padding="0"
+                     TextColor="Black" />
+        <VerticalStackLayout Grid.Column="1"
+                             Grid.Row="1"
+                             VerticalOptions="Center"
+                             HorizontalOptions="FillAndExpand">
+            <Border Padding="5" Margin="10"
+                    HorizontalOptions="Center"
+                    Stroke="#FD7B38"
+                    
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    VerticalOptions="Center">
+                <Label Text="Выберите файл"
+                        Margin="0"
+                       Padding="0"
+                       x:Name="LablePath"
+                        HorizontalOptions="Center"
+                        TextColor="Black"
+                           HeightRequest="20"/>
+                <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+            </Border>
+            <Button Text="Выбрать файл" 
+                    BackgroundColor="#FD7B38"
+                    Clicked="PickImage"
+                    TextColor="White">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding  Source={x:Reference isImage} , Path =IsChecked}" Value="True">
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button"
+                                 Binding="{Binding  Source={x:Reference isImage} , Path =IsChecked}" Value="False">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </VerticalStackLayout>
+        <Button Grid.Row="2"
+                Grid.Column="0"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Grid.ColumnSpan="2"
+                Text="Применить" 
+                BackgroundColor="#FD7B38"
+                TextColor="White"
+                Clicked="OnButtonClicked"/>
+    </Grid>
+</toolkit:Popup>

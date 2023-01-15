@@ -2,40 +2,185 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WordApp.MainPage"
-             BackgroundColor="#F7F8FA">
+             xmlns:viewmodel="clr-namespace:WordApp"
+             x:DataType="viewmodel:MainViewModel"
+             BackgroundColor="#F7F7F4">
 
 
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Start">
+    <Grid RowDefinitions="60,10*"
+            Padding="30,10"
+            VerticalOptions="FillAndExpand">
+        <Frame Padding="10" Grid.Row="0"
+                   BackgroundColor="#fff" 
+                   HorizontalOptions="Start"
+                   Margin="5" BorderColor="#fff">
+            <Entry TextColor="Black" Margin="1" 
+                   VerticalOptions="Center"    
+                   FontSize="16"
+                   Placeholder="Введите название предмета"/>
+        </Frame>
+        <Frame Padding="10" Grid.Row="1"
+               BorderColor="#fff" 
+               BackgroundColor="#fff"
+               Margin="5">
+            <Grid RowDefinitions="60, *">
+                <Border Grid.Row="0"
+                        Stroke="#FD7B38"
+                        HorizontalOptions="Center"
+                        Padding="0" Margin="0">
+                    <Label 
+                        FontSize="18"
+                           Margin="20,10"
+                           Text="Конструктор заданий"
+                           TextColor="Black"
+                           VerticalOptions="Center"
+                        HorizontalOptions="CenterAndExpand"/>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                </Border>
+                <Button Text="Добавить задание" Grid.Row="0"
+                        HorizontalOptions="End"
+                        TextColor="#FFF"
+                        Margin="10,0"
+                        FontSize="16"
+                        BackgroundColor="#FD7B38"
+                        VerticalOptions="Center"
+                        Command="{Binding AddTaskWordCommand}"
+                       />
+                <Border Grid.Row="1"
+                        Padding="0" Margin="10,20"
+                         Stroke="#FD7B38">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10,10,10,10" />
+                    </Border.StrokeShape>
+                    <CollectionView 
+                                ItemsSource="{Binding TaskWord}"
+                                Margin="10"
+                                EmptyView="No items to display">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodel:ModelTask">
+                                <Border Grid.Row="1"
+                                        Padding="0" Margin="10"
+                                        Stroke="#FD7B38">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10,10,10,10" />
+                                    </Border.StrokeShape>
+                                    <Grid ColumnDefinitions="55,230,*,80"
+                                          RowDefinitions="120"
+                                          HorizontalOptions="FillAndExpand" Padding="0">
+                                        <Border  Grid.Column="0"
+                                                 Padding="5" Margin="10,10,0,10"
+                                                 Stroke="#FD7B38"
+                                                 VerticalOptions="Center">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10,10,10,10" />
+                                            </Border.StrokeShape>
+                                            <Label Text="1" TextColor="Black"
+                                               FontSize="24" VerticalOptions="Center"
+                                                   HorizontalOptions="Center"/>
+                                        </Border>
+                                        
+                                        <VerticalStackLayout Grid.Column="1" Margin="0,0" VerticalOptions="Center"
+                                                             HorizontalOptions="Center">
+                                            <RadioButton Content="Одной строчкой" 
+                                                         Margin="0"
+                                                         Padding="0"
+                                                         TextColor="Black"
+                                                         />
+                                            <RadioButton Content="С большой картинкой"                                                                       
+                                                         Margin="0"
+                                                         Padding="0"
+                                                         TextColor="Black" 
+                                                          
+                                                         />
+                                        </VerticalStackLayout>
+                                        <CollectionView Grid.Column="2" ItemsSource="{Binding DataList}">
+                                            <CollectionView.ItemsLayout>
+                                                <LinearItemsLayout Orientation="Horizontal"
+                                                                   ItemSpacing="10"/>
+                                            </CollectionView.ItemsLayout>
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate x:DataType="viewmodel:ItemModel">
+                                                    <Border BackgroundColor="#FFF" Padding="0"
+                                                                   Margin="0,10,0,10" 
+                                                                   Stroke="#FD7B38">
+                                                        <Grid ColumnDefinitions="Auto,Auto" Padding="0" Margin="10">
+                                                                            <Label Text="{Binding DisplaiData}"
+                                                                                   Grid.Column="0"
+                                                                                   TextColor="Black"
+                                                                                   VerticalOptions="Center"
+                                                                                   Margin="0"
+                                                                                   Padding="10"/>
+                                                                            <Image Source="{Binding DisplaiImage}"
+                                                                                   Grid.Column="0"
+                                                                                  
+                                                                                   MaximumWidthRequest="200"
+                                                                                   VerticalOptions="Center"/>
 
-            <Frame Padding="7" BackgroundColor="#fff" Margin="5">
-                <Entry TextColor="Black" Margin="1" Placeholder="Введите название предмета"/>
-            </Frame>
-            <Frame Padding="7" BackgroundColor="#fff" Margin="5">
-            <Grid RowDefinitions="45, *">
-                <Grid Grid.Row="0" ColumnDefinitions="*,*" >
-                    <Label Grid.Column="0" Text="Генератор заданий" TextColor="Black"/>
-                    <Button Grid.Column="1" Text="+" Padding="0"
-                            WidthRequest="30"
-                            HeightRequest="30"
-                            TextColor="White"
-                            FontSize="18"
-                            HorizontalOptions="End"
-                            VerticalOptions="Start"
-                            BackgroundColor="{StaticResource Primary}"/>
-                </Grid>
-               
-                <ScrollView Grid.Row="1">
-                <VerticalStackLayout>
-                        <Label Grid.Column="0" Text="Генератор заданий" TextColor="Black"/>
-                </VerticalStackLayout>
-            </ScrollView>
+
+                                                                        <VerticalStackLayout VerticalOptions="Center"
+                                                                                             Grid.Column="1"
+                                                                                                 Padding="0"
+                                                                                             
+                                                                                                 Margin="5,0,5,5">
+                                                                            <ImageButton HorizontalOptions="End"
+                                                                                        VerticalOptions="Start"
+                                                                                        Source="close.png"
+                                                                                        BackgroundColor="#FD7B38"
+                                                                                        Padding="5,0"
+                                                                                        Margin="0,5,0,5"
+                                                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DellItemTaskWordCommand}"
+                                                                                        CommandParameter="{Binding .}"
+                                                                                        HeightRequest="30"
+                                                                                        WidthRequest="30"
+                                                                                        CornerRadius="10"/>
+                                                                            <ImageButton BackgroundColor="#FD7B38"
+                                                                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=OpenPopupCommand}"
+                                                                                             CommandParameter="{Binding .}"
+                                                                                             HeightRequest="30"
+                                                                                             Source="edit.png"
+                                                                                             WidthRequest="30"
+                                                                                             Padding="5,0"
+                                                                                             CornerRadius="10"/>
+                                                                        </VerticalStackLayout>
+                                                            </Grid>
+                                                            <Border.StrokeShape>
+                                                                    <RoundRectangle CornerRadius="10,10,10,10" />
+                                                                </Border.StrokeShape> 
+                                                            </Border>
+
+
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                        <VerticalStackLayout  Grid.Column="3" Margin="0,5" VerticalOptions="Center"
+                                                              Spacing="10">
+                                            <ImageButton BackgroundColor="#FD7B38"
+                                                         Source="add.png"
+                                                         Padding="5,0"
+                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=AddItemTaskWordCommand}"
+                                                         CommandParameter="{Binding .}"
+                                                         CornerRadius="10" WidthRequest="40" HeightRequest="40"/>
+                                            <ImageButton BackgroundColor="#FD7B38"
+                                                         Source="close.png"
+                                                         Padding="5,0"
+                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DellTaskWordCommand}"
+                                                         CommandParameter="{Binding .}"   
+                                                     CornerRadius="10" WidthRequest="40" HeightRequest="40"/>
+                                        </VerticalStackLayout>
+                                     
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+                </Border>
             </Grid>
         </Frame>
-                
-        </VerticalStackLayout>
+      
+    </Grid>
 
 
 </ContentPage>
